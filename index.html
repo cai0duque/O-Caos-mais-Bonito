@@ -191,6 +191,7 @@
           const conf = document.createElement('div');
           conf.className = 'confetti-piece';
           conf.style.left = Math.random() * 100 + 'vw';
+          conf.style.top = '-10px';
           conf.style.background = Math.random() > 0.5 ? '#5A7BFF' : '#FF9BCF';
           document.body.appendChild(conf);
           setTimeout(() => conf.remove(), 4000);
