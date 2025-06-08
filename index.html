@@ -186,17 +186,28 @@
       document.getElementById('closeModal').onclick = () => modal.classList.add('hidden');
 
       document.getElementById('confettiBtn').onclick = () => {
-        modal.classList.add('hidden');
-        for (let i = 0; i < 120; i++) {
-          const conf = document.createElement('div');
-          conf.className = 'confetti-piece';
-          conf.style.left = Math.random() * 100 + 'vw';
-          conf.style.top = '-10px';
-          conf.style.background = Math.random() > 0.5 ? '#5A7BFF' : '#FF9BCF';
-          document.body.appendChild(conf);
-          setTimeout(() => conf.remove(), 4000);
-        }
-      };
+  modal.classList.add('hidden');
+
+  const colors = ['#5A7BFF', '#FF9BCF', '#FFE18D', '#FFFFFF', '#121212'];
+
+  for (let i = 0; i < 200; i++) {
+    const conf = document.createElement('div');
+    conf.className = 'confetti-piece';
+    conf.style.left = Math.random() * 100 + 'vw';
+    conf.style.top  = Math.random() * -100 + 'px';  
+
+    const size = Math.random() * 6 + 4; 
+    conf.style.width  = size + 'px';
+    conf.style.height = size + 'px';
+    conf.style.background       = colors[Math.floor(Math.random() * colors.length)];
+    conf.style.animationDuration = (Math.random() * 2 + 3) + 's'; 
+    conf.style.animationDelay    = (Math.random() * 1) + 's'; 
+
+    document.body.appendChild(conf);
+    setTimeout(() => conf.remove(), 6000);
+  }
+};
+
 
       setInterval(() => {
         next.click();
