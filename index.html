@@ -21,6 +21,7 @@
         height: 8px;
         background: #FFE18D;
         opacity: 0.8;
+        z-index: 60;
         animation: fall 4s linear forwards;
       }
       @keyframes fall {
@@ -185,6 +186,7 @@
       document.getElementById('closeModal').onclick = () => modal.classList.add('hidden');
 
       document.getElementById('confettiBtn').onclick = () => {
+        modal.classList.add('hidden');
         for (let i = 0; i < 120; i++) {
           const conf = document.createElement('div');
           conf.className = 'confetti-piece';
