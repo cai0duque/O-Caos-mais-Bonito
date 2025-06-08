@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#5A7BFF" />
+    <title>Caos mais Bonito – Feliz Aniversário, Bianca!</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet" />
+    <style>
+      body {
+        font-family: 'Poppins', sans-serif;
+      }
+      h1, h2, h3 {
+        font-family: 'Playfair Display', serif;
+      }
+      .confetti-piece {
+        position: fixed;
+        width: 8px;
+        height: 8px;
+        background: #FFE18D;
+        opacity: 0.8;
+        animation: fall 4s linear forwards;
+      }
+      @keyframes fall {
+        to {
+          transform: translateY(100vh) rotate(720deg);
+          opacity: 0;
+        }
+      }
+      .tooltip:hover .tooltip-text {
+        opacity: 1;
+      }
+    </style>
+  </head>
+  <body class="bg-[#121212] text-white scroll-smooth selection:bg-[#5A7BFF]/30">
+    <audio id="bgm" src="assets/ost_fontaine.mp3" loop></audio>
+
+    <section class="relative flex flex-col items-center justify-center min-h-screen text-center px-4">
+      <img src="assets/fanarte_navia_neuv.png" alt="Navia & Neuvillette" class="absolute inset-0 w-full h-full object-cover object-center opacity-20 pointer-events-none" />
+      <div class="relative z-10 max-w-2xl">
+        <h1 class="text-4xl md:text-6xl font-bold mb-6 text-[#5A7BFF] drop-shadow-lg">Feliz Aniversário, Bianca!</h1>
+        <p class="text-lg md:text-2xl mb-8">“Você é o Caos mais bonito na ordem que sempre defendi.”</p>
+        <button id="playVoice" class="bg-[#FF9BCF] hover:bg-[#ff87c4] text-[#121212] font-semibold px-6 py-3 rounded-full shadow-lg animate-bounce">▶ Ouvir Mensagem</button>
+      </div>
+    </section>
+
+    <section id="memorias" class="py-16 bg-white text-[#121212]">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-8">Memórias em Teyvat</h2>
+      <div class="max-w-4xl mx-auto overflow-hidden relative" id="carousel">
+        <div class="flex transition-transform duration-500" id="slides">
+          <figure class="w-full flex-shrink-0 p-4 flex flex-col items-center">
+            <img src="assets/ss1.jpg" class="rounded-xl shadow-md max-h-96 object-cover" alt="Screenshot 1" />
+            <figcaption class="mt-4 text-center">Nosso primeiro domínio em Fontaine 💙</figcaption>
+          </figure>
+          <figure class="w-full flex-shrink-0 p-4 flex flex-col items-center">
+            <img src="assets/ss2.jpg" class="rounded-xl shadow-md max-h-96 object-cover" alt="Screenshot 2" />
+            <figcaption class="mt-4 text-center">Caçando baús secretos juntos ✨</figcaption>
+          </figure>
+        </div>
+        <button id="prev" class="absolute left-2 top-1/2 -translate-y-1/2 bg-[#5A7BFF]/80 hover:bg-[#5A7BFF] text-white p-2 rounded-full">❮</button>
+        <button id="next" class="absolute right-2 top-1/2 -translate-y-1/2 bg-[#5A7BFF]/80 hover:bg-[#5A7BFF] text-white p-2 rounded-full">❯</button>
+      </div>
+    </section>
+
+    <section id="quiz" class="py-16 bg-[#FF9BCF]/10">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-8">Qual Navia habita em você?</h2>
+      <form id="quizForm" class="max-w-2xl mx-auto space-y-8 px-4">
+        <div>
+          <p class="mb-2 font-medium">1. Se você pudesse escolher um presente agora...</p>
+          <label class="block"><input type="radio" name="q1" value="bravura" required /> Uma espada lendária ⚔️</label>
+          <label class="block"><input type="radio" name="q1" value="ternura" /> Um buquê rosa 🌸</label>
+          <label class="block"><input type="radio" name="q1" value="brilho" /> Um broche dourado ✨</label>
+        </div>
+        <div>
+          <p class="mb-2 font-medium">2. Em combate, você prefere...</p>
+          <label class="block"><input type="radio" name="q2" value="bravura" required /> Liderar o ataque</label>
+          <label class="block"><input type="radio" name="q2" value="ternura" /> Suporte estratégico</label>
+          <label class="block"><input type="radio" name="q2" value="brilho" /> Finalizar com estilo</label>
+        </div>
+        <div>
+          <p class="mb-2 font-medium">3. Cor que melhor define seu humor hoje?</p>
+          <label class="block"><input type="radio" name="q3" value="bravura" required /> Azul</label>
+          <label class="block"><input type="radio" name="q3" value="ternura" /> Rosa</label>
+          <label class="block"><input type="radio" name="q3" value="brilho" /> Amarelo</label>
+        </div>
+        <button type="submit" class="bg-[#5A7BFF] hover:bg-[#4762d6] px-6 py-3 rounded-full font-semibold shadow">Descobrir</button>
+      </form>
+      <div id="quizResult" class="mt-10 text-center text-2xl font-bold hidden"></div>
+    </section>
+
+    <section class="relative py-20 bg-[#121212] text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-6">Encontre todos os laços escondidos!</h2>
+      <p class="opacity-70">Dica: role pela página e clique nos laços ✨</p>
+      <div id="secretModal" class="fixed inset-0 bg-black/70 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-xl p-8 max-w-md text-[#121212] text-center relative">
+          <button id="closeModal" class="absolute -top-3 -right-3 bg-red-500 text-white rounded-full w-8 h-8">×</button>
+          <img src="assets/secret_fanarte.png" alt="Surpresa" class="rounded mb-4" />
+          <p class="mb-4">Surpresa final! Obrigado por ser meu caos favorito. Te amo 💙</p>
+          <button id="confettiBtn" class="bg-[#FF9BCF] px-4 py-2 rounded-full font-semibold">🎁 Trocar presente</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="galeria" class="py-16 bg-white text-[#121212]">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-8">Inspirações Lolita & Coquette</h2>
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 max-w-5xl mx-auto px-4">
+        <div class="relative tooltip">
+          <img src="assets/lolita1.jpg" alt="Lolita 1" class="rounded-lg shadow" />
+          <span class="tooltip-text absolute bottom-2 left-1/2 -translate-x-1/2 bg-[#FF9BCF] text-[#121212] text-sm px-2 py-1 rounded opacity-0 transition-opacity">roriita kawaii – vestido fofo</span>
+        </div>
+      </div>
+    </section>
+    <footer class="py-8 bg-[#121212] text-center text-sm opacity-80">
+      Para sempre, Duque ❤️ — <a href="assets/wallpaper_bianca.png" class="underline hover:text-[#5A7BFF]">Download Wallpaper</a>
+    </footer>
+
+    <img src="assets/laco.png" class="hidden-laco fixed top-32 left-10 w-8 cursor-pointer" />
+    <img src="assets/laco.png" class="hidden-laco fixed top-[70%] left-[80%] w-8 cursor-pointer" />
+    <img src="assets/laco.png" class="hidden-laco fixed top-1/2 left-[40%] w-8 cursor-pointer" />
+    <img src="assets/laco.png" class="hidden-laco fixed top-20 right-12 w-8 cursor-pointer" />
+    <img src="assets/laco.png" class="hidden-laco fixed bottom-24 right-[45%] w-8 cursor-pointer" />
+
+    <script>
+      const playBtn = document.getElementById('playVoice');
+      const bgm = document.getElementById('bgm');
+      const voice = new Audio('assets/voz_duque.mp3');
+      playBtn.addEventListener('click', () => {
+        voice.play();
+        bgm.muted = false;
+        bgm.play();
+      });
+
+      const slides = document.getElementById('slides');
+      const prev = document.getElementById('prev');
+      const next = document.getElementById('next');
+      let index = 0;
+      const total = slides.children.length;
+      function updateCarousel() {
+        slides.style.transform = `translateX(-${index * 100}%)`;
+      }
+      prev.onclick = () => {
+        index = (index - 1 + total) % total;
+        updateCarousel();
+      };
+      next.onclick = () => {
+        index = (index + 1) % total;
+        updateCarousel();
+      };
+
+      const quizForm = document.getElementById('quizForm');
+      const quizResult = document.getElementById('quizResult');
+      quizForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const form = new FormData(quizForm);
+        const counts = { bravura: 0, ternura: 0, brilho: 0 };
+        for (let [_, val] of form.entries()) counts[val]++;
+        const winner = Object.keys(counts).reduce((a, b) => (counts[a] > counts[b] ? a : b));
+        let msg = '';
+        if (winner === 'bravura') msg = 'Você é a Navia destemida! 💙';
+        if (winner === 'ternura') msg = 'Você é a Navia coração de rosa! 🌸';
+        if (winner === 'brilho') msg = 'Você é a Navia que brilha como ouro! ✨';
+        quizResult.textContent = msg;
+        quizResult.classList.remove('hidden');
+      });
+
+      const lacos = document.querySelectorAll('.hidden-laco');
+      let found = 0;
+      const modal = document.getElementById('secretModal');
+      lacos.forEach((l) => {
+        l.addEventListener('click', () => {
+          l.remove();
+          found++;
+          if (found === lacos.length) modal.classList.remove('hidden');
+        });
+      });
+      document.getElementById('closeModal').onclick = () => modal.classList.add('hidden');
+
+      document.getElementById('confettiBtn').onclick = () => {
+        for (let i = 0; i < 120; i++) {
+          const conf = document.createElement('div');
+          conf.className = 'confetti-piece';
+          conf.style.left = Math.random() * 100 + 'vw';
+          conf.style.background = Math.random() > 0.5 ? '#5A7BFF' : '#FF9BCF';
+          document.body.appendChild(conf);
+          setTimeout(() => conf.remove(), 4000);
+        }
+      };
+
+      setInterval(() => {
+        next.click();
+      }, 8000);
+    </script>
+  </body>
+</html>
