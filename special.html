@@ -36,9 +36,9 @@
         0%   { transform: rotate(45deg) translateY(0);   opacity: .8; }
         100% { transform: rotate(45deg) translateY(-100vh); opacity: 0; }
       }
-      
+
       .fugitive {
-        position: fixed;
+        position: static;
         transition: top .2s ease, left .2s ease;
       }
 
@@ -72,7 +72,7 @@
       <h1 class="text-3xl md:text-4xl font-bold mb-4 text-[#5A7BFF]">Bianca, você aceita namorar comigo?</h1>
       <p class="mb-8 text-lg md:text-xl">Escolhi o dia <span class="font-semibold">16</span> porque é a soma dos nossos aniversários (8 + 8) – duas metades que juntas ficam inteiras. 💙</p>
 
-      <div class="relative h-32 mb-6 flex items-center justify-center">
+      <div class="relative h-40 mb-6 flex flex-col items-center justify-center gap-4">
         <button id="yesBtn" class="bg-[#5A7BFF] hover:bg-[#4762d6] text-white font-semibold px-8 py-4 rounded-full shadow-lg">SIM 💍</button>
         <button id="noBtn" class="fugitive bg-[#FFFFFF] text-[#121212] font-semibold px-8 py-4 rounded-full shadow-md select-none">Não 🙈</button>
       </div>
@@ -86,7 +86,13 @@
       const answer  = document.getElementById('answerMsg');
 
       function moveButton() {
-        const pad = 20; 
+        if (noBtn.style.position !== 'fixed') {
+          const rect = noBtn.getBoundingClientRect();
+          noBtn.style.position = 'fixed';
+          noBtn.style.left = rect.left + 'px';
+          noBtn.style.top  = rect.top  + 'px';
+        }
+        const pad = 20;
         const x = Math.random() * (window.innerWidth  - noBtn.offsetWidth  - pad * 2) + pad;
         const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - pad * 2) + pad;
         noBtn.style.left = x + 'px';
