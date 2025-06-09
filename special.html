@@ -7,11 +7,28 @@
     <meta name="theme-color" content="#5A7BFF" />
     <title>16 razões para dizer sim – Pedido Especial</title>
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Hydro bubbles script -->
+    <script>
+      for (let i = 0; i < 15; i++) {
+        const b = document.createElement('div');
+        b.className = 'bubble';
+        const size = Math.random() * 30 + 20; // 20–50px
+        b.style.width = size + 'px';
+        b.style.height = size + 'px';
+        b.style.left = Math.random() * 100 + 'vw';
+        b.style.animationDelay = Math.random() * 6 + 's';
+        b.style.animationDuration = (Math.random() * 3 + 6) + 's';
+        b.style.background = `rgba(90,123,255,${Math.random() * 0.4 + 0.2})`;
+        document.body.appendChild(b);
+      }
+    </script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet" />
     <style>
       body { font-family: 'Poppins', sans-serif; }
       h1, h2, h3 { font-family: 'Playfair Display', serif; }
 
+      /* Corações flutuantes */
       .heart {
         position: fixed;
         width: 14px;
@@ -53,6 +70,28 @@
       @keyframes fall {
         to { transform: translateY(100vh) rotate(720deg); opacity: 0; }
       }
+      .bubble {
+        position: fixed;
+        bottom: -40px;
+        border-radius: 50%;
+        background: rgba(90, 123, 255, 0.3);
+        pointer-events: none;
+        animation: rise 12s linear infinite;
+        z-index: 10;
+      }
+      @keyframes rise {
+        from { transform: translateY(0) scale(.8); opacity: .6; }
+        to   { transform: translateY(-110vh) scale(1.2); opacity: 0; }
+      }
+
+      .animate-pulse-slow {
+        animation: pulse-slow 4s ease-in-out infinite;
+        animation-delay: 4s;
+      }
+      @keyframes pulse-slow {
+        0%,100% { transform: scale(1); }
+        50%     { transform: scale(1.05); }
+      }
     </style>
   </head>
   <body class="relative min-h-screen bg-gradient-to-b from-[#121212] via-[#1a1a1a] to-[#121212] text-white flex items-center justify-center px-4 overflow-hidden">
@@ -70,11 +109,11 @@
 
     <div class="relative z-10 bg-[#FF9BCF] text-[#121212] rounded-2xl shadow-xl max-w-xl w-full p-8 md:p-12 text-center">
       <h1 class="text-3xl md:text-4xl font-bold mb-4 text-[#5A7BFF]">Bianca, você aceita namorar comigo?</h1>
-      <p class="mb-8 text-lg md:text-xl">Escolhi o dia <span class="font-semibold">16</span> porque é a soma dos nossos aniversários 💙</p>
+      <p class="mb-8 text-lg md:text-xl">Escolhi o dia <span class="font-semibold">16</span> porque é a soma dos nossos aniversários (8 + 8) – duas metades que juntas ficam inteiras. 💙</p>
 
       <div class="relative h-40 mb-6 flex flex-col items-center justify-center gap-4">
-        <button id="yesBtn" class="bg-[#5A7BFF] hover:bg-[#4762d6] text-white font-semibold px-8 py-4 rounded-full shadow-lg">SIM 💍</button>
-        <button id="noBtn" class="fugitive bg-[#FFFFFF] text-[#121212] font-semibold px-8 py-4 rounded-full shadow-md select-none">Não</button>
+        <button id="yesBtn" class="animate-pulse-slow bg-[#5A7BFF] hover:bg-[#4762d6] text-white font-semibold px-8 py-4 rounded-full shadow-lg">SIM 💍</button>
+        <button id="noBtn" class="fugitive bg-[#FFFFFF] text-[#121212] font-semibold px-8 py-4 rounded-full shadow-md select-none">Não 🙈</button>
       </div>
 
       <div id="answerMsg" class="hidden text-xl font-semibold"></div>
@@ -102,8 +141,6 @@
       ['mouseover', 'mousedown', 'touchstart'].forEach(evt => {
         noBtn.addEventListener(evt, moveButton);
       });
-      // moveButton(); desativado
-
       yesBtn.onclick = () => {
         yesBtn.disabled = true;
         answer.textContent = 'AAAAAA 💙 Você fez meu mundo mais feliz!';
