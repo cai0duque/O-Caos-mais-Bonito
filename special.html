@@ -8,12 +8,11 @@
     <title>16 razões para dizer sim – Pedido Especial</title>
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Hydro bubbles script -->
     <script>
-      for (let i = 0; i < 15; i++) {
+      for (let i = 0; i < 25; i < 15; i++) {
         const b = document.createElement('div');
         b.className = 'bubble';
-        const size = Math.random() * 30 + 20; // 20–50px
+        const size = Math.random() * 30 + 20;
         b.style.width = size + 'px';
         b.style.height = size + 'px';
         b.style.left = Math.random() * 100 + 'vw';
@@ -28,7 +27,6 @@
       body { font-family: 'Poppins', sans-serif; }
       h1, h2, h3 { font-family: 'Playfair Display', serif; }
 
-      /* Corações flutuantes */
       .heart {
         position: fixed;
         width: 14px;
@@ -70,9 +68,17 @@
       @keyframes fall {
         to { transform: translateY(100vh) rotate(720deg); opacity: 0; }
       }
+   
       .bubble {
         position: fixed;
         bottom: -40px;
+        border-radius: 50%;
+        pointer-events: none;
+        background: rgba(90, 123, 255, 0.35);
+        filter: blur(1px);
+        z-index: 20;
+        animation: rise 14s linear infinite;
+      }
         border-radius: 50%;
         background: rgba(90, 123, 255, 0.3);
         pointer-events: none;
@@ -141,6 +147,7 @@
       ['mouseover', 'mousedown', 'touchstart'].forEach(evt => {
         noBtn.addEventListener(evt, moveButton);
       });
+
       yesBtn.onclick = () => {
         yesBtn.disabled = true;
         answer.textContent = 'AAAAAA 💙 Você fez meu mundo mais feliz!';
