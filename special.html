@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#5A7BFF" />
+    <title>16 razões para dizer sim – Pedido Especial</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet" />
+    <style>
+      body { font-family: 'Poppins', sans-serif; }
+      h1, h2, h3 { font-family: 'Playfair Display', serif; }
+      .heart {
+        position: fixed;
+        width: 14px;
+        height: 14px;
+        background: #FF9BCF;
+        transform: rotate(45deg);
+        animation: float 6s linear infinite;
+        opacity: .8;
+        z-index: 30;
+      }
+      .heart::before, .heart::after {
+        content: '';
+        position: absolute;
+        width: 14px;
+        height: 14px;
+        background: #FF9BCF;
+        border-radius: 50%;
+      }
+      .heart::before { top: -7px; left: 0; }
+      .heart::after { left: -7px; top: 0; }
+      @keyframes float {
+        0% { transform: rotate(45deg) translateY(0); opacity: .8; }
+        100% { transform: rotate(45deg) translateY(-100vh); opacity: 0; }
+      }
+      .fugitive { transition: transform .2s ease; position: absolute; }
+    </style>
+  </head>
+  <body class="relative min-h-screen bg-gradient-to-b from-[#121212] via-[#1a1a1a] to-[#121212] text-white flex items-center justify-center px-4 overflow-hidden">
+    <script>
+      for(let i=0;i<25;i++){
+        const h=document.createElement('div');
+        h.className='heart';
+        h.style.left=Math.random()*100+'vw';
+        h.style.bottom='-20px';
+        h.style.animationDelay=Math.random()*5+'s';
+        h.style.animationDuration= (Math.random()*3+4)+'s';
+        document.body.appendChild(h);
+      }
+    </script>
+
+    <div class="relative z-10 bg-[#FFFFFF] text-[#121212] rounded-2xl shadow-xl max-w-xl w-full p-8 md:p-12 text-center">
+      <h1 class="text-3xl md:text-4xl font-bold mb-4 text-[#5A7BFF]">Bianca, você aceita namorar comigo?</h1>
+      <p class="mb-8 text-lg md:text-xl">Escolhi o dia <span class="font-semibold">16</span> porque é a soma dos nossos aniversários (8 + 8) – duas metades que juntas ficam inteiras. 💙</p>
+
+      <div class="relative h-32 mb-6 flex items-center justify-center">
+        <button id="yesBtn" class="bg-[#5A7BFF] hover:bg-[#4762d6] text-white font-semibold px-8 py-4 rounded-full shadow-lg">SIM 💍</button>
+        <button id="noBtn" class="fugitive bg-[#FF9BCF] text-[#121212] font-semibold px-8 py-4 rounded-full shadow-md select-none">Não 🙈</button>
+      </div>
+
+      <div id="answerMsg" class="hidden text-xl font-semibold"></div>
+    </div>
+
+    <style>
+      .confetti-piece{position:fixed;width:8px;height:8px;opacity:.9;z-index:60;animation:fall 4s linear forwards}
+      @keyframes fall{to{transform:translateY(100vh) rotate(720deg);opacity:0}}
+    </style>
+
+    <script>
+      const noBtn = document.getElementById('noBtn');
+      const yesBtn = document.getElementById('yesBtn');
+      const answer = document.getElementById('answerMsg');
+
+      function moveButton(){
+        const pad = 20;
+        const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - pad*2) + pad;
+        const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - pad*2) + pad;
+        noBtn.style.transform = `translate(${x}px, ${y}px)`;
+      }
+      ['mouseover','mousedown','touchstart'].forEach(evt=>{
+        noBtn.addEventListener(evt, moveButton);
+      });
+      moveButton();
+
+      yesBtn.onclick = ()=>{
+        yesBtn.disabled = true;
+        answer.textContent = 'AAAAAA 💙 Você fez meu mundo mais feliz!';
+        answer.classList.remove('hidden');
+        const colors=['#5A7BFF','#FF9BCF','#FFE18D'];
+        for(let i=0;i<180;i++){
+          const conf=document.createElement('div');
+          conf.className='confetti-piece';
+          conf.style.left=Math.random()*100+'vw';
+          conf.style.top=Math.random()*-100+'px';
+          conf.style.background=colors[Math.floor(Math.random()*colors.length)];
+          conf.style.animationDuration=(Math.random()*2+3)+'s';
+          document.body.appendChild(conf);
+          setTimeout(()=>conf.remove(),6000);
+        }
+      };
+    </script>
+  </body>
+</html>
